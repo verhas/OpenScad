@@ -95,7 +95,7 @@ difference() {
     textc("size 90x90x5mm", [30, 0, 0], size = 2);
     textc("center 30/35mm", [30, - 3, 0], size = 2);
     textc("3/ 2mm", [35, - 6, 0], size = 2);
-    textc("(C) 2023 Peter Verhas", [0, - 37, 0], size = 2);
+    textc("https://github.com/verhas/OpenScad/blob/main/GTK550-base.scad", [0, - 37, 0], size = 2);
 }
 
 
