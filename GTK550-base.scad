@@ -17,87 +17,54 @@ $fn = 500;
 
 // The size of the base plate
 w = 90;
-// The width of the lip around the center hole.
+// The height of the lip around the center hole.
 h1 = 2;
 // the height of the base plate
 h = 5;
 
-// text height on the top
-th = 0.2;
+// the height of the screw head
+sh = 3.5;
+
+centerHoleTolerance = 0.5;
+// Center hole small radius
+cr = (30.0 + centerHoleTolerance) / 2;
+// Center hole large radius
+cR = (35.0 + 2) / 2;
+
+plaShrinking = 2;
+
+hhd = (72.0 + plaShrinking) / 2.0;
+vhd = 65.0 + plaShrinking / 2.0;
 
 // used to make the holes longer so that they do not stop exactly at the surface and does not leave a 0mm layer that may confuse some rendering software.
 // this is the amount the holes, when substracted from the main material are potrude to the outside.
 epsilon = 0.01;
 
-module corner(h, r) {
-    difference() {
-        translate([- r, - r, 0])
-            cube([r * 2, r * 2, h]);
-        union() {
-            translate([r, r, h / 2 + epsilon])
-                cylinder(r = r, h = h + 2 * epsilon, center = true);
-            translate([- r, r, h / 2 + epsilon])
-                cylinder(r = r, h = h + 2 * epsilon, center = true);
-            translate([r, - r, h / 2 + epsilon])
-                cylinder(r = r, h = h + 2 * epsilon, center = true);
-            translate([- r, - r, h / 2 + epsilon])
-                cylinder(r = r, h = h + 2 * epsilon, center = true);
-        }
-    }
-}
-
-
 module screw_hole(pos) {
-    translate(pos) {
+    translate([pos[0], pos[1], 0]) {
         translate([0, 0, h / 2 + epsilon / 2])
             cylinder(r = 5 / 2, h = h + 2 * epsilon, center = true);
-        translate([0, 0, h1 / 2 - epsilon / 2])
-            cylinder(r = 8 / 2, h = h1 + epsilon, center = true);
+        translate([0, 0, sh / 2 - epsilon / 2])
+            cylinder(r = 8 / 2, h = sh + epsilon, center = true);
     }
 }
 
 module center_hole() {
     translate([0, 0, h / 2 + epsilon / 2])
-        cylinder(r = 30 / 2, h = h + 2 * epsilon, center = true);
+        cylinder(r = cr, h = h + 2 * epsilon, center = true);
     translate([0, 0, h1 / 2 - epsilon / 2])
-        cylinder(r = 35 / 2, h = h1 + epsilon, center = true);
+        cylinder(r = cR, h = h1 + epsilon, center = true);
 }
-
-module textc(s, pos, size = 5) {
-    translate(pos)
-        translate([0, 0, h])
-            linear_extrude(height = th + epsilon, center = true, $fn = 100)
-                text(s, size = size, font = "Arial:style=Bold", halign = "center", valign = "center");
-}
-
-x = 72 / 2;
-y = 65;
-
 
 difference() {
     translate([- w / 2, - w / 2, 0])
         cube([w, w, h]);
     center_hole();
-    cylinder(r = 5 / 2, h = h + 2 * epsilon, center = true);
-    screw_hole([x, x, 0]);
-    screw_hole([- x, x, 0]);
-    screw_hole([x, x - y, 0]);
-    screw_hole([- x, x - y, 0]);
-    translate([w / 2, w / 2, - epsilon])
-        corner(h + 2 * epsilon, 5);
-    translate([- w / 2, w / 2, - epsilon])
-        corner(h + 2 * epsilon, 5);
-    translate([w / 2, - w / 2, - epsilon])
-        corner(h + 2 * epsilon, 5);
-    translate([- w / 2, - w / 2, - epsilon])
-        corner(h + 2 * epsilon, 5);
-    textc("nur für GTK550 Bosch", [0, 20, 0]);
-    textc("size 90x90x5mm", [30, 0, 0], size = 2);
-    textc("center 30/35mm", [30, - 3, 0], size = 2);
-    textc("3/ 2mm", [35, - 6, 0], size = 2);
-    textc("https://github.com/verhas/OpenScad/blob/main/GTK550-base.scad", [0, - 37, 0], size = 2);
+    screw_hole([hhd, hhd]);
+    screw_hole([- hhd, hhd]);
+    screw_hole([hhd, hhd - vhd]);
+    screw_hole([- hhd, hhd - vhd]);
 }
-
 
 
 
