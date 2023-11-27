@@ -1,5 +1,5 @@
 /**
-* Bosch GTK550 router base plate.
+* Bosch GKF550 router base plate.
 *
 * The base plate is 90mm x 90mm x 5mm. It has 4 holes for M4 bolts, 72mm apart.
 * The holes are 8mm in diameter for the bolt heads, and 2mm deep.
