@@ -1,12 +1,12 @@
 /**
 * Bosch GTK550 router base plate.
 *
-* The base plate is 90mm x 90mm x 5mm. It has 4 holes for M4 screws, 72mm apart.
-* The holes are 8mm in diameter for the screw heads, and 2mm deep.
+* The base plate is 90mm x 90mm x 5mm. It has 4 holes for M4 bolts, 72mm apart.
+* The holes are 8mm in diameter for the bolt heads, and 2mm deep.
 *
 * The center hole is 30mm in diameter and has a 2mm thick 35mm diameter lip.
 * This is to accomodate the inlay bushing, which is 30mm in diameter, has a 5mm wide and 2mm thick ledge arond it.
-* You place the bushing from under and fix it with the screw from above.
+* You place the bushing from under and fix it with the bolt from above.
 *
 * The original plate is not symmetric to make place for the attachments.
 * If you need the attachments, use the original plate.
@@ -22,7 +22,7 @@ h1 = 2;
 // the height of the base plate
 h = 5;
 
-// the height of the screw head
+// the height of the bolt head
 sh = 3.5;
 
 centerHoleTolerance = 0.5;
@@ -40,7 +40,7 @@ vhd = 65.0 + plaShrinking / 2.0;
 // this is the amount the holes, when substracted from the main material are potrude to the outside.
 epsilon = 0.01;
 
-module screw_hole(pos) {
+module bolt_hole(pos) {
     translate([pos[0], pos[1], 0]) {
         translate([0, 0, h / 2 + epsilon / 2])
             cylinder(r = 5 / 2, h = h + 2 * epsilon, center = true);
@@ -60,10 +60,10 @@ difference() {
     translate([- w / 2, - w / 2, 0])
         cube([w, w, h]);
     center_hole();
-    screw_hole([hhd, hhd]);
-    screw_hole([- hhd, hhd]);
-    screw_hole([hhd, hhd - vhd]);
-    screw_hole([- hhd, hhd - vhd]);
+    bolt_hole([hhd, hhd]);
+    bolt_hole([- hhd, hhd]);
+    bolt_hole([hhd, hhd - vhd]);
+    bolt_hole([- hhd, hhd - vhd]);
 }
 
 
